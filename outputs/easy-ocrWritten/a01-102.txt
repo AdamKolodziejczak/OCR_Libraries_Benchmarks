@@ -4,7 +4,7 @@ ot helpi-a
 olue >>
 Ohol
 Kecll ~5
-siek /)
+siek /
 43
 cesdds
 opilc
@@ -15,22 +15,22 @@ F
 curased
 wicled
 hr
-Bioldu
+bioldu
 MURAL
 e
-Le_
-Wi
+Le _
+i
 uabl_
 eafic
 Wlicl
 ~eO 5
 OLL
-118i alve
-oselilecl
+448i ual;ve
+aselilecl
 Fo
 Ll-Piour
 3 ,
-6uk
+buk
 #
 hao
 arueucr
@@ -39,15 +39,15 @@ doo cAdnd
 Fas
 Lue
 KcLI
-Qvcb(el?
+0vcb(el?
 Lo
-Faali -5
-abcul
+Faali_-5
+abclul
 L-u
 blua o8
 Cc>
 a4
-LA
+LA 
 clcara
 ola
 aeali-$
@@ -55,5 +55,5 @@ aeali-$
 oue
 Kl
 Lq
-&al
+&a
 9-au

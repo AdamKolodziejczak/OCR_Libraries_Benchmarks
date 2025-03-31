@@ -1,11 +1,11 @@
 UOCA
-PA
+PL
 Lo
 0 +
-Lhr
+Llr
 ~CLl
-cuay
-'parc
+cunay
+3percl
 Wue
 A
 Hacuuc
@@ -21,7 +21,7 @@ Rrgel
 (@wu
 alucst
 CALG
-Lela-
+Lelar
 CL 0
 L,
 Cl
@@ -31,7 +31,7 @@ Uodr_
 DL
 ACC~
 o(
-Uray
+Uraly
 veytec
 Ja
 pic^
@@ -42,20 +42,20 @@ lclea
 Nauea
 Se enelecot
 uuclec
-LA
+LCA
 cellrc
 obclud
 35464
 ASfeeacs
 Jily
-Fls 
-lu Leal
+Lls 
+luLeal
 Nalle
 LLA _
 80 ;
 Kiuwoc$
 ad
-Scwufu - €cA
+Sccufu - â‚¬cA
 Kia
 AcD
 c4
@@ -63,5 +63,5 @@ cualy
 06"
 GC
 0 -
-La ;
+L ;
 Ce 
