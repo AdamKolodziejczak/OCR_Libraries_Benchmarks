@@ -1,7 +1,7 @@
 # Text Recognition using Optical Character Recognition (OCR) Libraries
 
 ## Introduction
-The goal of our project is to utilize multiple different OCR libraries, and compare these libraries using a handwritten [Kaggle Dataset](https://www.kaggle.com/datasets/naderabdalghani/iam-handwritten-forms-dataset/data) that contains hundreds of directories with a typed paragraph, followed by their handwritten version (each handwritten version is different). These libraries will then be compared based on different benchmarks for the recognition abilities to see which is superior.
+The goal of our project is to utilize multiple different OCR libraries, and compare these libraries using a handwritten [Kaggle Dataset](https://www.kaggle.com/datasets/naderabdalghani/iam-handwritten-forms-dataset/data) that contains hundreds of directories with a typed paragraph, followed by their handwritten version (each handwritten version is different). These libraries will then be compared based on different benchmarks for their recognition abilities to see which is the best fit.
 
 ### Libraries Used:
 - PyTesseract
