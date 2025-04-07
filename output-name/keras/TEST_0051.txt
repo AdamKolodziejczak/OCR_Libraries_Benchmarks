@@ -1,1 +1,2 @@
-tchorots nomt stchorots nomt s
+nom s tchorots
+st

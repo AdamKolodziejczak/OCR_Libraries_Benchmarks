@@ -1,1 +1,3 @@
-e es nom bardote es nom bardot
+e a
+nom
+bardot
