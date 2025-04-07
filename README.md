@@ -2,7 +2,7 @@
 
 Please refer to the goolge drive here for the zipped folder of the fill project. Note that some files output folders and models were to large to push.
 
-Saved models v2 and v6 could be found in the google drive due to the size of the model and github not allowing it to be uploaded
+Saved models v2 and v6 could be found in the google drive due to the size of the models.
 
 ## Introduction
 The goal of our project is to utilize multiple different OCR libraries, and compare these libraries using a handwritten [Kaggle Dataset](https://www.kaggle.com/datasets/naderabdalghani/iam-handwritten-forms-dataset/data) that contains hundreds of directories with a typed paragraph, followed by their handwritten version (each handwritten version is different). These libraries will then be compared based on different benchmarks for their recognition abilities to see which is the best fit.
