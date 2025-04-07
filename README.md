@@ -1,4 +1,4 @@
-# Text Recognition using Optical Character Recognition (OCR) Libraries
+# Written Text Recognition using Optical Character Recognition (OCR) Libraries
 
 Please refer to the goolge drive here for the zipped folder of the fill project. Saved models v2 and v6 could be found in Google Drive due to the size of the models, found [here](https://drive.google.com/drive/folders/10h6bAp6HznDMLWdoMtMbanAfwCOV7OqE). The main Project is the Final_Project.ipynb.
 
