@@ -1,0 +1,150 @@
+\documentclass[9pt]{osa-supplemental-document}
+\usepackage{geometry}
+\usepackage{titling}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{helvet}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\usepackage{parskip}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{gensymb}
+
+\title{Optical Character Recognition Libraries and Trained Keras Model On Written Text: supplemental report}
+\author{Tyson Grant and Adam Kolodziejczak} %leave this blank
+%% DO NOT ADD AUTHOR INFORMATION HERE; IT WILL BE ADDED DURING PRODUCTION
+
+\begin{abstract}
+This document provides supplementary information for the report on Optical Character Recognition Libraries and Trained
+Keras Model on Written Text, created by Tyson Grant and Adam Kolodziejczak.  This material acts as additional information to give background understanding of the topics covered in the report.
+\end{abstract}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This document is designed to assist in understanding the report on Optical Character Recognition Libraries and a Trained Keras Model on Written Text.
+
+\section{Levenshtein Distance}
+
+The Levenshtein distance, also known as edit distance, is a quantifiable metric that calculates the minimum number of character edits - insertions, deletions, or substitutions - between two strings. It calculates the number of changes required to move from one string to another \cite{paperspace_levenshtein}.
+
+\begin{equation}
+    D(i, j) = 
+    \begin{cases}
+    \max(i, j) & \text{if } \min(i, j) = 0 \\
+    \min \begin{cases}
+        D(i - 1, j) + 1 \\
+        D(i, j - 1) + 1 \\
+        D(i - 1, j - 1) + \text{cost}
+    \end{cases} & \text{otherwise}
+    \end{cases}
+    \label{eq:lev}
+\end{equation}
+
+Where $D(i, j)$ is the edit distance between the first $i$ characters of String A, and the first $j$ characters of String B. \eqref{eq:lev} contains a recursive function where the base case is if the string is empty, and the recursive case that compares the characters at each position and applies the necessary operation \cite{paperspace_levenshtein}. 
+
+As seen in the \eqref{eq:cost}, if the characters at the given index are equal then the cost will be zero and will not be added to the substitution in \eqref{eq:lev}.
+\begin{equation}
+    \text{cost} = 
+    \begin{cases}
+        0 & \text{if } A_i = B_j \\
+        1 & \text{if } A_i \ne B_j
+    \end{cases}
+    \label{eq:cost}
+\end{equation}
+
+
+\section{Connectionist Temporal Classification Loss}
+Connectionist Temporal Classifcation (CTC) loss is used to compute the loss between unaligned sequences, producing an output that is differentiable for each input \cite{gfg_ctc}. Regarding OCR, sequence recognition problems are those that the text with images can vary in width and spacing, with the goal of producing a string of the text. Due to these issues, the CTC loss function is used for input sequences longer and may not be perfectly aligned compared to the output \cite{gfg_ctc}. Allowing for characters to be matched from one input to an output, dealing with the issues mentioned in OCR. CTC also contains a blank token to combine repeated predictions into a single character for efficiency.
+
+\begin{equation}
+    k.ctc\_batch\_cost(labels, y\_pred, input\_length, label\_length)
+    \label{eq:ctc}
+\end{equation}
+
+As seen in \eqref{eq:ctc} above, the Keras built-in loss function takes inputs of the ground truth labels as encoded integers, the predicted character probability distribution over time, the length of each predicted sequence and the length of each encoded label sequence. With these inputs, CTC loss computes the negative log-likelihoods of the correct output sequences over time with model predictions \cite{pytorch_ctc}. This is done by summing all possible valid alignments, noting that CTC utilizes a blank token and automatically collapses repeated predictions into one character \cite{pytorch_ctc}. 
+
+\section{Optical Character Recognition Libraries}
+
+\subsection{PyTesseract}
+PyTesseract is Python function encapsulator (wrapper) for Google's Tesseract-OCR Engine, replicating its behaviour \cite{pytesseract}. The model is built using rule-based Template Matching, which combines template matching with defined rules to discover patterns. The model also uses LSTM Neural Networks to allow for increased recognition accuracy for text of varying size \cite{pytesseract}. PyTesseract is primarily trained on typed text of different fonts, so it is not as accurate for different variations of text such as handwritten, causing it to be most accurate when reading printed documents. The \verb|image_to_string| function apart of the library uses minimal image cleaning, so the model quickly processes images. Due to the library being a function encapsulator from the Tesseract Engine, it is only limited to what the Engine can produce since it only makes calls to the engine \cite{pytesseract}.
+
+Note: PyTesseract does not have a model summary as it strictly creates requests to  Google's Tesseract Engine
+
+\subsection{KerasOCR}
+KerasOCR is an OCR library built off of the Keras deep learning framework.  It is designed to use deep learning techniques to extract text from noisy image data. The model consists of a detector which finds a bounding box around the text using EAST or CRAFT (both methods of calculating region scores), and a recognizer which recognizes the individual characters within an image using Convoluutional Recurrent Neural Networks (CRNN) \cite{kerasocr}. Keras is fast for clean data, but slow for noisy data since it has to leverage the deep networks to compute the image processing. In addition, this pretrained model may be outperformed by those such as PyTesseract or EasyOCR, but due to the use of deep learning networks KerasOCR is highly customizable, allowing for extensive fine-tuning (such as architecture swap) and additional training to increase the recognition accuracy on a specific dataset \cite{kerasocr}.
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{keras-detector.png}
+    \caption{KerasOCR Detector Model Summary.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{keras-recognizer.png}
+    \caption{KerasOCR Recognizer Model Summary.}
+  \end{minipage}
+\end{figure}
+
+\newpage
+
+\subsection{EasyOCR}
+EasyOCR is another deep-learning based library, but it uses a hybridization of deep learning models and PyTorch. EasyOCR can also be implemented to read up to 80 different languages, allowing multiple languages to be read in the same image. It leverages Convolutional Neural Networks to detect text, and Recurrent Neural Networks to recognize text \cite{easyocr}. This model is efficient in recognizing complex text, but noisy text or unusual writing styles may affect the accuracy of the model. It is also not accurate for poor-quality images since it does not allow for image processing within the deep learning network, which can be avoided by applying pre-processing techniques \cite{easyocr}. EasyOCR is most slightly customizable using PyTorch deep learning techniques, but does not allow for customization to the loss function or image pre-processing within the model pipeline \cite{easyocr}. The EasyOCR model is best used suited for multi-lingual OCR tasks, or those with complex formats such as those with varying direction of text \cite{easyocr}.
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}[b]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{easyocr-detector.png}
+    \caption{EasyOCR Detector Model Summary.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{easyocr-recognizer.png}
+    \caption{EasyOCR Recognizer Model Summary.}
+  \end{minipage}
+\end{figure}
+
+
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{paperspace_levenshtein}
+Paperspace,
+\textit{Measuring Text Similarity Using Levenshtein Distance},
+Available at: \url{https://blog.paperspace.com/measuring-text-similarity-using-levenshtein-distance/}.
+
+\bibitem{gfg_ctc}
+GeeksforGeeks,
+\textit{Connectionist Temporal Classification (CTC) for Sequence Modelling},
+Available at: \url{https://www.geeksforgeeks.org/connectionist-temporal-classification/}.
+
+\bibitem{pytorch_ctc}
+PyTorch Documentation,
+\textit{torch.nn.CTCLoss},
+Available at: \url{https://pytorch.org/docs/stable/generated/torch.nn.CTCLoss.html}.
+
+\bibitem{pytesseract}
+Samuel Hoffstaetter. \textit{Python Tesseract - A Python wrapper for Google Tesseract-OCR}. Available at: \url{https://github.com/madmaze/pytesseract}. Accessed: March 31, 2025.
+
+\bibitem{kerasocr}
+Fausto Morales.
+\textit{keras-ocr: A packaged OCR pipeline using Keras and TensorFlow}.
+Available at: \url{https://github.com/faustomorales/keras-ocr}.
+Accessed: March 31, 2025.
+
+\bibitem{easyocr}
+JaidedAI.
+\textit{EasyOCR: Ready-to-use OCR with 80+ supported languages}.
+Available at: \url{https://github.com/JaidedAI/EasyOCR}.
+Accessed: March 31, 2025.
+\end{thebibliography}
+
+\end{document}
